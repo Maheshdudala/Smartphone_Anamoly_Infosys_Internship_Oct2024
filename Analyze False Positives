@@ -1,4 +1,3 @@
-. Analyze False Positives and False Negatives, Suggest Threshold Improvements
 # Evaluate false positives and false negatives for IQR and Z-score methods
 def evaluate_outliers(df, column, iqr_multiplier=1.5, z_threshold=3):
     iqr_out = iqr_outliers(df, column, iqr_multiplier)
