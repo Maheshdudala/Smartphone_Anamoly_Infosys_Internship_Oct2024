@@ -1,0 +1,39 @@
+. Analyze False Positives and False Negatives, Suggest Threshold Improvements
+# Evaluate false positives and false negatives for IQR and Z-score methods
+def evaluate_outliers(df, column, iqr_multiplier=1.5, z_threshold=3):
+    iqr_out = iqr_outliers(df, column, iqr_multiplier)
+    z_out = z_score_outliers(df, column, z_threshold)
+    
+    common_outliers = pd.merge(iqr_out, z_out, how='inner', on=df.columns.tolist())
+    
+    # False Positives and False Negatives
+    false_positives_iqr = iqr_out[~iqr_out.index.isin(z_out.index)]  # Outliers by IQR but not Z-score
+    false_negatives_iqr = df[(~df.index.isin(iqr_out.index)) & (df.index.isin(z_out.index))]  # Z-score outliers missed by IQR
+    
+    false_positives_z = z_out[~z_out.index.isin(iqr_out.index)]  # Outliers by Z-score but not IQR
+    false_negatives_z = df[(~df.index.isin(z_out.index)) & (df.index.isin(iqr_out.index))]  # IQR outliers missed by Z-score
+
+    return {
+        'common_outliers': len(common_outliers),
+        'false_positives_iqr': len(false_positives_iqr),
+        'false_negatives_iqr': len(false_negatives_iqr),
+        'false_positives_z': len(false_positives_z),
+        'false_negatives_z': len(false_negatives_z)
+    }
+
+# Analyze each feature for false positives/negatives
+for feature in key_features:
+    results = evaluate_outliers(df, feature, iqr_multiplier=2.0, z_threshold=2.5)
+
+    print(f"--- {feature} Outlier Evaluation ---")
+    print(f"Common Outliers: {results['common_outliers']}")
+    print(f"False Positives (IQR): {results['false_positives_iqr']}")
+    print(f"False Negatives (IQR): {results['false_negatives_iqr']}")
+    print(f"False Positives (Z-score): {results['false_positives_z']}")
+    print(f"False Negatives (Z-score): {results['false_negatives_z']}")
+    print("\n")
+
+# Suggest improvements or threshold adjustments based on the analysis
+# Example: Lower Z-score threshold or IQR multiplier to reduce false negatives
+print("Suggestion: Consider lowering Z-score threshold further or tuning IQR multiplier.")
+Part 3d.iv: Suggest Improvements or Adjustments to the Thresholds Used in IQR and Z-Score
