@@ -11,3 +11,14 @@ This project aims to use anomaly detection techniques to analyze smartphone sens
 
 ## Presentation
 [Access the PPT](https://docs.google.com/presentation/d/1emY6SoHMc9_ZDs6vkGavcVyXi5o3S4Q2/edit?usp=sharing&ouid=112195040657871254632&rtpof=true&sd=true)
+---
+
+## **Deployment Links**  
+
+### **Live Application on Hugging Face**  
+[🌐 Anomaly Detection App](https://huggingface.co/spaces/DishaMondal2024/Anomaly_Detection_Smartphone_Dataset)  
+
+### **Website Demo**  
+[📹 Watch Website Demo](https://drive.google.com/file/d/1FL9g-Xn4c9jwYIVh4Lg0DwoL3RhikTlY/view?usp=sharing)  
+
+---
